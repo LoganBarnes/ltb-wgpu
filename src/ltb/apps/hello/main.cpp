@@ -2,38 +2,51 @@
 // Copyright (c) Logan Barnes - All Rights Reserved
 // ///////////////////////////////////////////////////////////////////////////////////////
 
-// external
-#include <spdlog/spdlog.h>
-#include <webgpu/webgpu.h>
+// project
+#include "ltb/utils/types.hpp"
+#include "ltb/wgpu/app.hpp"
 
 // standard
-#include <iostream>
+#include <atomic>
+
+namespace ltb
+{
+namespace
+{
+
+constexpr auto default_flag = uint8{ 1 };
+constexpr auto exit_flag    = uint8{ 2 };
+
+struct ExitCallback
+{
+    std::atomic_uchar& signal_flag_;
+
+    auto operator( )( wgpu::App& app ) const
+    {
+        utils::ignore( app );
+        signal_flag_.store( exit_flag );
+    }
+};
+
+} // namespace
+} // namespace ltb
 
 int main( )
 {
-    // We create a descriptor
-    auto desc = WGPUInstanceDescriptor{ };
+    spdlog::set_level( spdlog::level::debug );
 
-    // We create the instance using this descriptor
-#ifdef WEBGPU_BACKEND_EMSCRIPTEN
-    auto* instance = ::wgpuCreateInstance( nullptr );
-#else
-    auto* instance = ::wgpuCreateInstance( &desc );
-#endif
+    auto signal_flag = std::atomic_uchar{ ltb::default_flag };
 
-    // We can check whether there is actually an instance created
-    if ( !instance )
+    auto app = ltb::wgpu::App{ ltb::ExitCallback{ signal_flag } };
+
+    app.run( );
+
+    spdlog::debug( "Waiting..." );
+    while ( ltb::exit_flag != signal_flag.load( ) )
     {
-        spdlog::error( "Could not initialize WebGPU!" );
-        return EXIT_FAILURE;
+        app.process( );
     }
-
-    // Display the object (WGPUInstance is a simple pointer, it may be
-    // copied around without worrying about its size).
-    spdlog::info( "WGPU instance: {}", fmt::ptr( instance ) );
-
-    // We clean up the WebGPU instance
-    ::wgpuInstanceRelease( instance );
+    spdlog::debug( "Exiting." );
 
     return EXIT_SUCCESS;
 }

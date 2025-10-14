@@ -14,8 +14,8 @@ namespace ltb::utils
 {
 
 template < typename T >
-auto get_binary_file_contents( std::filesystem::path const& file_path
-) -> utils::Result< std::vector< T > >
+auto get_binary_file_contents( std::filesystem::path const& file_path )
+    -> utils::Result< std::vector< T > >
 {
     auto file = std::ifstream( file_path, std::ios::ate | std::ios::binary );
 
@@ -43,8 +43,8 @@ auto get_binary_file_contents( std::filesystem::path const& file_path
 }
 
 template < typename T >
-auto get_binary_files_contents( std::vector< std::filesystem::path > const& file_paths
-) -> utils::Result< std::vector< std::vector< T > > >
+auto get_binary_files_contents( std::vector< std::filesystem::path > const& file_paths )
+    -> utils::Result< std::vector< std::vector< T > > >
 {
 
     auto buffers = std::vector< std::vector< T > >{ };

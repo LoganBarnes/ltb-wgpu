@@ -97,8 +97,8 @@ private:
 
     // SFINAE function that is called when Func does not require arguments
     template < typename Func, std::size_t... S >
-    auto
-    call_func( long, Func const& func, std::index_sequence< S... > ) -> decltype( func( ), void( ) )
+    auto call_func( long, Func const& func, std::index_sequence< S... > )
+        -> decltype( func( ), void( ) )
     {
         func( );
     }
