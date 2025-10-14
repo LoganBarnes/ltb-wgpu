@@ -5,6 +5,7 @@
 
 // project
 #include "ltb/utils/result.hpp"
+#include "ltb/window/os_window.hpp"
 
 // external
 #include <spdlog/spdlog.h>
@@ -13,19 +14,29 @@
 namespace ltb::wgpu
 {
 
+class App;
+
+using AppCallback = std::function< void( App& ) >;
+
+struct AppSettings
+{
+    window::OsWindow* window   = nullptr;
+    AppCallback       callback = nullptr;
+};
+
 class App
 {
 public:
-    using Callback = std::function< void( App& ) >;
-
-    explicit App( Callback app_callback );
+    explicit App( );
+    explicit App( AppSettings app_settings );
 
     auto run( ) -> void;
 
     auto process( ) -> void;
 
 private:
-    Callback app_callback_;
+    window::OsWindow* window_ = nullptr;
+    AppCallback       app_callback_;
 
     std::shared_ptr< WGPUInstanceImpl > instance_ = nullptr;
     std::shared_ptr< WGPUAdapterImpl >  adapter_  = nullptr;

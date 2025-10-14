@@ -102,13 +102,32 @@ struct DestroyQueue
 
 } // namespace
 
-App::App( Callback app_callback )
-    : app_callback_( std::move( app_callback ) )
+App::App( )
+    : App( AppSettings{ } )
+{
+}
+
+App::App( AppSettings app_settings )
+    : window_( app_settings.window )
+    , app_callback_( std::move( app_settings.callback ) )
 {
 }
 
 auto App::run( ) -> void
 {
+    if ( window_ )
+    {
+        if ( auto result = window_->initialize( ) )
+        {
+            spdlog::info( "OsWindow: {}", fmt::ptr( window_ ) );
+        }
+        else
+        {
+            spdlog::error( "Failed to initialize window: {}", result.error( ).error_message( ) );
+            return;
+        }
+    }
+
     constexpr auto descriptor = WGPUInstanceDescriptor{ };
 
     if ( auto* instance = ::wgpuCreateInstance( &descriptor ) )

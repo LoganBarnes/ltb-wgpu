@@ -33,9 +33,11 @@ cpmaddpackage(
   GIT_TAG
   main
   OPTIONS
-  "BUILD_SAMPLES OFF"
+  "DAWN_BUILD_SAMPLES OFF"
   "DAWN_BUILD_TESTS OFF"
+  "DAWN_USE_GLFW OFF"
   "TINT_BUILD_TESTS OFF"
+  "TINT_BUILD_SAMPLES OFF"
   "TINT_BUILD_IR_BINARY OFF"
 )
 cpmaddpackage(
@@ -48,31 +50,31 @@ cpmaddpackage(
   OPTIONS
   "EXPECTED_BUILD_TESTS OFF"
 )
-#cpmaddpackage(
-#  NAME
-#  GLFW
-#  GIT_REPOSITORY
-#  https://github.com/glfw/glfw.git
-#  GIT_TAG
-#  3.3.8
-#  OPTIONS
-#  "GLFW_BUILD_TESTS OFF"
-#  "GLFW_BUILD_EXAMPLES OFF"
-#  "GLFW_BUILD_DOCS OFF"
-#)
-#cpmaddpackage(
-#  NAME
-#  glm
-#  # None of the tagged versions have the fixes we need
-#  GIT_TAG
-#  cc98465e3508535ba8c7f6208df934c156a018dc
-#  GITHUB_REPOSITORY
-#  g-truc/glm
-#  # It's header only and the CMakeLists.txt file adds
-#  # global flags that break CUDA on windows
-#  DOWNLOAD_ONLY
-#  TRUE
-#)
+cpmaddpackage(
+  NAME
+  GLFW
+  GIT_REPOSITORY
+  https://github.com/glfw/glfw.git
+  GIT_TAG
+  3.3.8
+  OPTIONS
+  "GLFW_BUILD_TESTS OFF"
+  "GLFW_BUILD_EXAMPLES OFF"
+  "GLFW_BUILD_DOCS OFF"
+)
+cpmaddpackage(
+  NAME
+  glm
+  # None of the tagged versions have the fixes we need
+  GIT_TAG
+  cc98465e3508535ba8c7f6208df934c156a018dc
+  GITHUB_REPOSITORY
+  g-truc/glm
+  # It's header only and the CMakeLists.txt file adds
+  # global flags that break CUDA on windows
+  DOWNLOAD_ONLY
+  TRUE
+)
 cpmaddpackage("gh:Neargye/magic_enum@0.7.3")
 cpmaddpackage("gh:gabime/spdlog@1.12.0")
 cpmaddpackage(

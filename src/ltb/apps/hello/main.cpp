@@ -7,43 +7,27 @@
 #include "ltb/wgpu/app.hpp"
 
 // standard
+#include "ltb/window/glfw_os_window.hpp"
+
 #include <atomic>
-
-namespace ltb
-{
-namespace
-{
-
-constexpr auto default_flag = uint8{ 1 };
-constexpr auto exit_flag    = uint8{ 2 };
-
-struct ExitCallback
-{
-    std::atomic_uchar& signal_flag_;
-
-    auto operator( )( wgpu::App& app ) const
-    {
-        utils::ignore( app );
-        signal_flag_.store( exit_flag );
-    }
-};
-
-} // namespace
-} // namespace ltb
 
 int main( )
 {
     spdlog::set_level( spdlog::level::debug );
 
-    auto signal_flag = std::atomic_uchar{ ltb::default_flag };
+    auto window = ltb::window::GlfwOsWindow{ {
+        .title        = "Hello",
+        .initial_size = glm::ivec2{ 1280, 720 },
+    } };
 
-    auto app = ltb::wgpu::App{ ltb::ExitCallback{ signal_flag } };
+    auto app = ltb::wgpu::App{ { .window = &window } };
 
     app.run( );
 
     spdlog::debug( "Waiting..." );
-    while ( ltb::exit_flag != signal_flag.load( ) )
+    while ( !window.should_close( ) )
     {
+        window.poll_events( );
         app.process( );
     }
     spdlog::debug( "Exiting." );

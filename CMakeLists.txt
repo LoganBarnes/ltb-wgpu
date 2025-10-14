@@ -78,9 +78,10 @@ target_link_libraries(
   cxxopts::cxxopts
   $<TARGET_NAME_IF_EXISTS:TBB::tbb>
   # Geometry
-  #  glm::glm
+  glm::glm
   # Graphics
   dawn::webgpu_dawn
+  glfw::glfw
 )
 target_include_directories(
   LtbWgpu
