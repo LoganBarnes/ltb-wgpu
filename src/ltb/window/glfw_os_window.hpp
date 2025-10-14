@@ -21,6 +21,9 @@ public:
 
     [[nodiscard( "Const getter" )]] auto is_initialized( ) const -> bool override;
 
+    [[nodiscard( "Const getter" )]]
+    auto get_surface( WGPUInstanceImpl* instance ) -> WGPUSurface override;
+
     auto poll_events( ) -> void override;
 
     [[nodiscard( "Const getter" )]] auto should_close( ) const -> bool override;

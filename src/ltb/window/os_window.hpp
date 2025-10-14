@@ -8,6 +8,7 @@
 
 // external
 #include <glm/glm.hpp>
+#include <webgpu/webgpu.h>
 
 // standard
 #include <optional>
@@ -26,6 +27,11 @@ public:
 
     /// \brief Returns true if the window has been initialized.
     [[nodiscard( "Const getter" )]] virtual auto is_initialized( ) const -> bool = 0;
+
+    /// \brief Returns the WebGPU surface for the window.
+    [[nodiscard( "Const getter" )]]
+    virtual auto get_surface( WGPUInstanceImpl* instance ) -> WGPUSurface
+        = 0;
 
     /// \brief Checks for input and resize events from the window.
     virtual auto poll_events( ) -> void = 0;

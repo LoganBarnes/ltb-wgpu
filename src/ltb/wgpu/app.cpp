@@ -64,6 +64,18 @@ struct DestroyInstance
     }
 };
 
+struct DestroySurface
+{
+    auto operator( )( WGPUSurfaceImpl* const surface ) const -> void
+    {
+        if ( surface )
+        {
+            spdlog::info( "Destroying WGPU surface: {}", fmt::ptr( surface ) );
+            ::wgpuSurfaceRelease( surface );
+        }
+    }
+};
+
 struct DestroyAdapter
 {
     auto operator( )( WGPUAdapterImpl* const adapter ) const -> void
@@ -108,25 +120,13 @@ App::App( )
 }
 
 App::App( AppSettings app_settings )
-    : window_( app_settings.window )
-    , app_callback_( std::move( app_settings.callback ) )
+    : app_callback_( std::move( app_settings.callback ) )
+    , window_( app_settings.window )
 {
 }
 
 auto App::run( ) -> void
 {
-    if ( window_ )
-    {
-        if ( auto result = window_->initialize( ) )
-        {
-            spdlog::info( "OsWindow: {}", fmt::ptr( window_ ) );
-        }
-        else
-        {
-            spdlog::error( "Failed to initialize window: {}", result.error( ).error_message( ) );
-            return;
-        }
-    }
 
     constexpr auto descriptor = WGPUInstanceDescriptor{ };
 
@@ -141,7 +141,38 @@ auto App::run( ) -> void
         return;
     }
 
-    constexpr auto options = WGPURequestAdapterOptions{ };
+    if ( window_ )
+    {
+        if ( auto result = window_->initialize( ) )
+        {
+            spdlog::info( "OsWindow: {}", fmt::ptr( window_ ) );
+        }
+        else
+        {
+            spdlog::error( "Failed to initialize window: {}", result.error( ).error_message( ) );
+            return;
+        }
+
+        if ( auto* surface = window_->get_surface( instance_.get( ) ) )
+        {
+            spdlog::info( "WGPU surface: {}", fmt::ptr( surface ) );
+            surface_ = std::shared_ptr< WGPUSurfaceImpl >( surface, DestroySurface{ } );
+        }
+        else
+        {
+            spdlog::error( "Failed to get surface from window" );
+            return;
+        }
+    }
+
+    auto const options = WGPURequestAdapterOptions{
+        .nextInChain          = nullptr,
+        .featureLevel         = WGPUFeatureLevel_Undefined,
+        .powerPreference      = WGPUPowerPreference_Undefined,
+        .forceFallbackAdapter = false,
+        .backendType          = WGPUBackendType_Undefined,
+        .compatibleSurface    = surface_.get( ),
+    };
     utils::ignore(
         ::wgpuInstanceRequestAdapter(
             instance_.get( ),

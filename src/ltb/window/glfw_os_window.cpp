@@ -8,6 +8,7 @@
 
 // external
 #include <spdlog/spdlog.h>
+#include <webgpu/webgpu_glfw.h>
 
 namespace ltb::window
 {
@@ -43,6 +44,11 @@ auto GlfwOsWindow::initialize( ) -> utils::Result< void >
 auto GlfwOsWindow::is_initialized( ) const -> bool
 {
     return initialized_;
+}
+
+auto GlfwOsWindow::get_surface( WGPUInstanceImpl* const instance ) -> WGPUSurface
+{
+    return ::wgpuGlfwCreateSurfaceForWindow( instance, window_.get( ) );
 }
 
 auto GlfwOsWindow::poll_events( ) -> void

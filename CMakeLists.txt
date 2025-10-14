@@ -81,6 +81,7 @@ target_link_libraries(
   glm::glm
   # Graphics
   dawn::webgpu_dawn
+  webgpu_glfw
   glfw::glfw
 )
 target_include_directories(

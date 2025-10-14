@@ -20,8 +20,8 @@ using AppCallback = std::function< void( App& ) >;
 
 struct AppSettings
 {
-    window::OsWindow* window   = nullptr;
     AppCallback       callback = nullptr;
+    window::OsWindow* window   = nullptr;
 };
 
 class App
@@ -35,13 +35,15 @@ public:
     auto process( ) -> void;
 
 private:
-    window::OsWindow* window_ = nullptr;
-    AppCallback       app_callback_;
+    AppCallback app_callback_;
 
+    window::OsWindow*                   window_   = nullptr;
     std::shared_ptr< WGPUInstanceImpl > instance_ = nullptr;
-    std::shared_ptr< WGPUAdapterImpl >  adapter_  = nullptr;
-    std::shared_ptr< WGPUDeviceImpl >   device_   = nullptr;
-    std::shared_ptr< WGPUQueueImpl >    queue_    = nullptr;
+    std::shared_ptr< WGPUSurfaceImpl >  surface_  = nullptr;
+
+    std::shared_ptr< WGPUAdapterImpl > adapter_ = nullptr;
+    std::shared_ptr< WGPUDeviceImpl >  device_  = nullptr;
+    std::shared_ptr< WGPUQueueImpl >   queue_   = nullptr;
 
     static auto handle_adapter(
         WGPURequestAdapterStatus status,

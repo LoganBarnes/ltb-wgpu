@@ -27,6 +27,18 @@ cpmaddpackage(
 )
 cpmaddpackage(
   NAME
+  GLFW
+  GITHUB_REPOSITORY
+  glfw/glfw
+  GIT_TAG
+  3.4
+  OPTIONS
+  "GLFW_BUILD_TESTS OFF"
+  "GLFW_BUILD_EXAMPLES OFF"
+  "GLFW_BUILD_DOCS OFF"
+)
+cpmaddpackage(
+  NAME
   dawn
   GIT_REPOSITORY
   https://dawn.googlesource.com/dawn
@@ -35,7 +47,7 @@ cpmaddpackage(
   OPTIONS
   "DAWN_BUILD_SAMPLES OFF"
   "DAWN_BUILD_TESTS OFF"
-  "DAWN_USE_GLFW OFF"
+  "DAWN_USE_GLFW ON"
   "TINT_BUILD_TESTS OFF"
   "TINT_BUILD_SAMPLES OFF"
   "TINT_BUILD_IR_BINARY OFF"
@@ -49,18 +61,6 @@ cpmaddpackage(
   LoganBarnes/expected
   OPTIONS
   "EXPECTED_BUILD_TESTS OFF"
-)
-cpmaddpackage(
-  NAME
-  GLFW
-  GIT_REPOSITORY
-  https://github.com/glfw/glfw.git
-  GIT_TAG
-  3.3.8
-  OPTIONS
-  "GLFW_BUILD_TESTS OFF"
-  "GLFW_BUILD_EXAMPLES OFF"
-  "GLFW_BUILD_DOCS OFF"
 )
 cpmaddpackage(
   NAME
