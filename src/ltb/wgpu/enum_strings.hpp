@@ -1,0 +1,17 @@
+// ///////////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) Logan Barnes - All Rights Reserved
+// ///////////////////////////////////////////////////////////////////////////////////////
+#pragma once
+
+// external
+#include <webgpu/webgpu.h>
+
+// standard
+#include <string_view>
+
+namespace ltb::wgpu
+{
+
+auto to_string( WGPUFeatureName feature ) -> std::string_view;
+
+} // namespace ltb::wgpu

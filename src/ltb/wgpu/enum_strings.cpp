@@ -1,0 +1,182 @@
+// ///////////////////////////////////////////////////////////////////////////////////////
+// Copyright (c) Logan Barnes - All Rights Reserved
+// ///////////////////////////////////////////////////////////////////////////////////////
+#include "ltb/wgpu/enum_strings.hpp"
+
+namespace ltb::wgpu
+{
+
+auto to_string( WGPUFeatureName const feature ) -> std::string_view
+{
+    switch ( feature )
+    {
+        case WGPUFeatureName_CoreFeaturesAndLimits:
+            return "WGPUFeatureName_CoreFeaturesAndLimits";
+        case WGPUFeatureName_DepthClipControl:
+            return "WGPUFeatureName_DepthClipControl";
+        case WGPUFeatureName_Depth32FloatStencil8:
+            return "WGPUFeatureName_Depth32FloatStencil8";
+        case WGPUFeatureName_TextureCompressionBC:
+            return "WGPUFeatureName_TextureCompressionBC";
+        case WGPUFeatureName_TextureCompressionBCSliced3D:
+            return "WGPUFeatureName_TextureCompressionBCSliced3D";
+        case WGPUFeatureName_TextureCompressionETC2:
+            return "WGPUFeatureName_TextureCompressionETC2";
+        case WGPUFeatureName_TextureCompressionASTC:
+            return "WGPUFeatureName_TextureCompressionASTC";
+        case WGPUFeatureName_TextureCompressionASTCSliced3D:
+            return "WGPUFeatureName_TextureCompressionASTCSliced3D";
+        case WGPUFeatureName_TimestampQuery:
+            return "WGPUFeatureName_TimestampQuery";
+        case WGPUFeatureName_IndirectFirstInstance:
+            return "WGPUFeatureName_IndirectFirstInstance";
+        case WGPUFeatureName_ShaderF16:
+            return "WGPUFeatureName_ShaderF16";
+        case WGPUFeatureName_RG11B10UfloatRenderable:
+            return "WGPUFeatureName_RG11B10UfloatRenderable";
+        case WGPUFeatureName_BGRA8UnormStorage:
+            return "WGPUFeatureName_BGRA8UnormStorage";
+        case WGPUFeatureName_Float32Filterable:
+            return "WGPUFeatureName_Float32Filterable";
+        case WGPUFeatureName_Float32Blendable:
+            return "WGPUFeatureName_Float32Blendable";
+        case WGPUFeatureName_ClipDistances:
+            return "WGPUFeatureName_ClipDistances";
+        case WGPUFeatureName_DualSourceBlending:
+            return "WGPUFeatureName_DualSourceBlending";
+        case WGPUFeatureName_Subgroups:
+            return "WGPUFeatureName_Subgroups";
+        case WGPUFeatureName_TextureFormatsTier1:
+            return "WGPUFeatureName_TextureFormatsTier1";
+        case WGPUFeatureName_TextureFormatsTier2:
+            return "WGPUFeatureName_TextureFormatsTier2";
+        case WGPUFeatureName_PrimitiveIndex:
+            return "WGPUFeatureName_PrimitiveIndex";
+        case WGPUFeatureName_DawnInternalUsages:
+            return "WGPUFeatureName_DawnInternalUsages";
+        case WGPUFeatureName_DawnMultiPlanarFormats:
+            return "WGPUFeatureName_DawnMultiPlanarFormats";
+        case WGPUFeatureName_DawnNative:
+            return "WGPUFeatureName_DawnNative";
+        case WGPUFeatureName_ChromiumExperimentalTimestampQueryInsidePasses:
+            return "WGPUFeatureName_ChromiumExperimentalTimestampQueryInsidePasses";
+        case WGPUFeatureName_ImplicitDeviceSynchronization:
+            return "WGPUFeatureName_ImplicitDeviceSynchronization";
+        case WGPUFeatureName_TransientAttachments:
+            return "WGPUFeatureName_TransientAttachments";
+        case WGPUFeatureName_MSAARenderToSingleSampled:
+            return "WGPUFeatureName_MSAARenderToSingleSampled";
+        case WGPUFeatureName_D3D11MultithreadProtected:
+            return "WGPUFeatureName_D3D11MultithreadProtected";
+        case WGPUFeatureName_ANGLETextureSharing:
+            return "WGPUFeatureName_ANGLETextureSharing";
+        case WGPUFeatureName_PixelLocalStorageCoherent:
+            return "WGPUFeatureName_PixelLocalStorageCoherent";
+        case WGPUFeatureName_PixelLocalStorageNonCoherent:
+            return "WGPUFeatureName_PixelLocalStorageNonCoherent";
+        case WGPUFeatureName_Unorm16TextureFormats:
+            return "WGPUFeatureName_Unorm16TextureFormats";
+        case WGPUFeatureName_Snorm16TextureFormats:
+            return "WGPUFeatureName_Snorm16TextureFormats";
+        case WGPUFeatureName_MultiPlanarFormatExtendedUsages:
+            return "WGPUFeatureName_MultiPlanarFormatExtendedUsages";
+        case WGPUFeatureName_MultiPlanarFormatP010:
+            return "WGPUFeatureName_MultiPlanarFormatP010";
+        case WGPUFeatureName_HostMappedPointer:
+            return "WGPUFeatureName_HostMappedPointer";
+        case WGPUFeatureName_MultiPlanarRenderTargets:
+            return "WGPUFeatureName_MultiPlanarRenderTargets";
+        case WGPUFeatureName_MultiPlanarFormatNv12a:
+            return "WGPUFeatureName_MultiPlanarFormatNv12a";
+        case WGPUFeatureName_FramebufferFetch:
+            return "WGPUFeatureName_FramebufferFetch";
+        case WGPUFeatureName_BufferMapExtendedUsages:
+            return "WGPUFeatureName_BufferMapExtendedUsages";
+        case WGPUFeatureName_AdapterPropertiesMemoryHeaps:
+            return "WGPUFeatureName_AdapterPropertiesMemoryHeaps";
+        case WGPUFeatureName_AdapterPropertiesD3D:
+            return "WGPUFeatureName_AdapterPropertiesD3D";
+        case WGPUFeatureName_AdapterPropertiesVk:
+            return "WGPUFeatureName_AdapterPropertiesVk";
+        case WGPUFeatureName_R8UnormStorage:
+            return "WGPUFeatureName_R8UnormStorage";
+        case WGPUFeatureName_DawnFormatCapabilities:
+            return "WGPUFeatureName_DawnFormatCapabilities";
+        case WGPUFeatureName_DawnDrmFormatCapabilities:
+            return "WGPUFeatureName_DawnDrmFormatCapabilities";
+        case WGPUFeatureName_Norm16TextureFormats:
+            return "WGPUFeatureName_Norm16TextureFormats";
+        case WGPUFeatureName_MultiPlanarFormatNv16:
+            return "WGPUFeatureName_MultiPlanarFormatNv16";
+        case WGPUFeatureName_MultiPlanarFormatNv24:
+            return "WGPUFeatureName_MultiPlanarFormatNv24";
+        case WGPUFeatureName_MultiPlanarFormatP210:
+            return "WGPUFeatureName_MultiPlanarFormatP210";
+        case WGPUFeatureName_MultiPlanarFormatP410:
+            return "WGPUFeatureName_MultiPlanarFormatP410";
+        case WGPUFeatureName_SharedTextureMemoryVkDedicatedAllocation:
+            return "WGPUFeatureName_SharedTextureMemoryVkDedicatedAllocation";
+        case WGPUFeatureName_SharedTextureMemoryAHardwareBuffer:
+            return "WGPUFeatureName_SharedTextureMemoryAHardwareBuffer";
+        case WGPUFeatureName_SharedTextureMemoryDmaBuf:
+            return "WGPUFeatureName_SharedTextureMemoryDmaBuf";
+        case WGPUFeatureName_SharedTextureMemoryOpaqueFD:
+            return "WGPUFeatureName_SharedTextureMemoryOpaqueFD";
+        case WGPUFeatureName_SharedTextureMemoryZirconHandle:
+            return "WGPUFeatureName_SharedTextureMemoryZirconHandle";
+        case WGPUFeatureName_SharedTextureMemoryDXGISharedHandle:
+            return "WGPUFeatureName_SharedTextureMemoryDXGISharedHandle";
+        case WGPUFeatureName_SharedTextureMemoryD3D11Texture2D:
+            return "WGPUFeatureName_SharedTextureMemoryD3D11Texture2D";
+        case WGPUFeatureName_SharedTextureMemoryIOSurface:
+            return "WGPUFeatureName_SharedTextureMemoryIOSurface";
+        case WGPUFeatureName_SharedTextureMemoryEGLImage:
+            return "WGPUFeatureName_SharedTextureMemoryEGLImage";
+        case WGPUFeatureName_SharedFenceVkSemaphoreOpaqueFD:
+            return "WGPUFeatureName_SharedFenceVkSemaphoreOpaqueFD";
+        case WGPUFeatureName_SharedFenceSyncFD:
+            return "WGPUFeatureName_SharedFenceSyncFD";
+        case WGPUFeatureName_SharedFenceVkSemaphoreZirconHandle:
+            return "WGPUFeatureName_SharedFenceVkSemaphoreZirconHandle";
+        case WGPUFeatureName_SharedFenceDXGISharedHandle:
+            return "WGPUFeatureName_SharedFenceDXGISharedHandle";
+        case WGPUFeatureName_SharedFenceMTLSharedEvent:
+            return "WGPUFeatureName_SharedFenceMTLSharedEvent";
+        case WGPUFeatureName_SharedBufferMemoryD3D12Resource:
+            return "WGPUFeatureName_SharedBufferMemoryD3D12Resource";
+        case WGPUFeatureName_StaticSamplers:
+            return "WGPUFeatureName_StaticSamplers";
+        case WGPUFeatureName_YCbCrVulkanSamplers:
+            return "WGPUFeatureName_YCbCrVulkanSamplers";
+        case WGPUFeatureName_ShaderModuleCompilationOptions:
+            return "WGPUFeatureName_ShaderModuleCompilationOptions";
+        case WGPUFeatureName_DawnLoadResolveTexture:
+            return "WGPUFeatureName_DawnLoadResolveTexture";
+        case WGPUFeatureName_DawnPartialLoadResolveTexture:
+            return "WGPUFeatureName_DawnPartialLoadResolveTexture";
+        case WGPUFeatureName_MultiDrawIndirect:
+            return "WGPUFeatureName_MultiDrawIndirect";
+        case WGPUFeatureName_DawnTexelCopyBufferRowAlignment:
+            return "WGPUFeatureName_DawnTexelCopyBufferRowAlignment";
+        case WGPUFeatureName_FlexibleTextureViews:
+            return "WGPUFeatureName_FlexibleTextureViews";
+        case WGPUFeatureName_ChromiumExperimentalSubgroupMatrix:
+            return "WGPUFeatureName_ChromiumExperimentalSubgroupMatrix";
+        case WGPUFeatureName_SharedFenceEGLSync:
+            return "WGPUFeatureName_SharedFenceEGLSync";
+        case WGPUFeatureName_DawnDeviceAllocatorControl:
+            return "WGPUFeatureName_DawnDeviceAllocatorControl";
+        case WGPUFeatureName_TextureComponentSwizzle:
+            return "WGPUFeatureName_TextureComponentSwizzle";
+        case WGPUFeatureName_ChromiumExperimentalBindless:
+            return "WGPUFeatureName_ChromiumExperimentalBindless";
+        case WGPUFeatureName_AdapterPropertiesWGPU:
+            return "WGPUFeatureName_AdapterPropertiesWGPU";
+        case WGPUFeatureName_Force32:
+            return "WGPUFeatureName_Force32";
+    }
+
+    return "Unknown WGPUFeatureName";
+}
+
+} // namespace ltb::wgpu
