@@ -17,7 +17,8 @@ int main( )
 
     auto window = ltb::window::GlfwOsWindow{ {
         .title        = "Hello",
-        .initial_size = glm::ivec2{ 1280, 720 },
+        .resizable    = false,
+        .initial_size = ltb::wgpu::App::default_size,
     } };
 
     auto app = ltb::wgpu::App{ { .window = &window } };

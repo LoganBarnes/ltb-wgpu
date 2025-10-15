@@ -76,7 +76,7 @@ auto get_monitor( ) -> utils::Result< GLFWmonitor* >
 auto get_initial_size(
     GLFWmonitor* const                 monitor,
     bool const                         title_bar,
-    std::optional< glm::ivec2 > const& requested_initial_size
+    std::optional< glm::uvec2 > const& requested_initial_size
 ) -> utils::Result< glm::ivec2 >
 {
     if ( nullptr == monitor )
@@ -99,16 +99,14 @@ auto get_initial_size(
     // A specific size was requested.
     if ( requested_initial_size.has_value( ) )
     {
-        initial_size = requested_initial_size.value( );
-
-        // Full screen with title bar.
+        initial_size = glm::ivec2( requested_initial_size.value( ) );
     }
+    // Full screen with title bar.
     else if ( title_bar )
     {
         initial_size = glm::ivec2{ video_mode->width, video_mode->height };
-
-        // Full screen without the title bar.
     }
+    // Full screen without the title bar.
     else
     {
         // Get the work area of the monitor to create a window that fits

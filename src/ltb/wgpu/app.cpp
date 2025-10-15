@@ -9,6 +9,9 @@
 // external
 #include <magic_enum.hpp>
 
+// standard
+#include <algorithm>
+
 namespace ltb::wgpu
 {
 namespace
@@ -244,6 +247,7 @@ auto App::handle_adapter(
         auto const& feature = features.features[ i ];
         spdlog::info( " - {} ({:x})", to_string( feature ), std::to_underlying( feature ) );
     }
+    ::wgpuSupportedFeaturesFreeMembers( features );
 
     auto info = WGPUAdapterInfo{ };
     if ( WGPUStatus_Success == ::wgpuAdapterGetInfo( adapter, &info ) )
@@ -266,6 +270,7 @@ auto App::handle_adapter(
             magic_enum::enum_name( info.backendType )
         );
     }
+    ::wgpuAdapterInfoFreeMembers( info );
 
     constexpr auto descriptor = WGPUDeviceDescriptor{
         .nextInChain          = nullptr,
@@ -324,7 +329,6 @@ auto App::handle_device(
     app->device_ = std::shared_ptr< WGPUDeviceImpl >( device, DestroyDevice{ } );
 
     auto limits = WGPULimits{ };
-
     if ( WGPUStatus_Success == ::wgpuDeviceGetLimits( device, &limits ) )
     {
         spdlog::info(
@@ -348,7 +352,51 @@ auto App::handle_device(
     else
     {
         spdlog::error( "Could not get WebGPU queue" );
+        return;
     }
+
+    auto capabilities = WGPUSurfaceCapabilities{ };
+    if ( WGPUStatus_Success
+         == ::wgpuSurfaceGetCapabilities(
+             app->surface_.get( ),
+             app->adapter_.get( ),
+             &capabilities
+         ) )
+    {
+        spdlog::info( "Surface formats" );
+        for ( auto i = 0UZ; i < capabilities.formatCount; ++i )
+        {
+            spdlog::info( " - {}", to_string( capabilities.formats[ i ] ) );
+        }
+    }
+    else
+    {
+        spdlog::error( "Could not get WebGPU surface capabilities" );
+        return;
+    }
+
+    constexpr auto    preferred_format = WGPUTextureFormat_BGRA8UnormSrgb;
+    auto const* const formats_end      = capabilities.formats + capabilities.formatCount;
+    if ( std::find( capabilities.formats, formats_end, preferred_format ) == formats_end )
+    {
+        spdlog::error( "Surface does not support {}", to_string( preferred_format ) );
+        return;
+    }
+    ::wgpuSurfaceCapabilitiesFreeMembers( capabilities );
+
+    auto configuration = WGPUSurfaceConfiguration{
+        .nextInChain     = nullptr,
+        .device          = app->device_.get( ),
+        .format          = preferred_format,
+        .usage           = WGPUTextureUsage_RenderAttachment,
+        .width           = default_size.x,
+        .height          = default_size.y,
+        .viewFormatCount = 0UZ,
+        .viewFormats     = nullptr,
+        .alphaMode       = WGPUCompositeAlphaMode_Auto,
+        .presentMode     = WGPUPresentMode_Mailbox,
+    };
+    ::wgpuSurfaceConfigure( app->surface_.get( ), &configuration );
 
     if ( app->app_callback_ )
     {

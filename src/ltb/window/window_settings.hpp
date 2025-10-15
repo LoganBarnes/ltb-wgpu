@@ -29,7 +29,7 @@ struct WindowSettings
     bool title_bar = true;
 
     /// \brief The initial size of the window. Fullscreen if nullopt.
-    std::optional< glm::ivec2 > initial_size = std::nullopt;
+    std::optional< glm::uvec2 > initial_size = std::nullopt;
 
     /// \brief The initial position of the window. If nullopt, the window will
     ///        be positioned by the operating system.

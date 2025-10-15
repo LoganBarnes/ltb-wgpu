@@ -14,4 +14,6 @@ namespace ltb::wgpu
 
 auto to_string( WGPUFeatureName feature ) -> std::string_view;
 
+auto to_string( WGPUTextureFormat feature ) -> std::string_view;
+
 } // namespace ltb::wgpu

@@ -34,6 +34,8 @@ public:
 
     auto process( ) -> void;
 
+    static constexpr glm::uvec2 default_size = { 1280U, 720U };
+
 private:
     AppCallback app_callback_;
 
@@ -60,6 +62,8 @@ private:
         void*                   userdata1,
         void*                   userdata2
     ) -> void;
+
+    static auto configure_surface( ) -> void;
 };
 
 } // namespace ltb::wgpu
